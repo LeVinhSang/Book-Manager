@@ -69,7 +69,6 @@ class Book{
      */
     setAuthor(author) {
         this.author = author;
-        return this;
     }
 
     /**
@@ -79,7 +78,6 @@ class Book{
      */
     setPublisher(publisher) {
         this.publisher = publisher;
-        // return this;
     }
 
     /**
@@ -99,7 +97,6 @@ class Book{
      */
     setId(id) {
         this.id = id;
-        return this;
     }
 
     /**
