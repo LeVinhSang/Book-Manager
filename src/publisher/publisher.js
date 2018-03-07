@@ -18,6 +18,14 @@ class Publisher {
 
     /**
      *
+     * @return {string|*}
+     */
+    getName () {
+        return this.name;
+    }
+
+    /**
+     *
      * @return {string|null}
      */
     getAddress () {
