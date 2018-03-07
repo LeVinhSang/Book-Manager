@@ -55,17 +55,14 @@ class Book{
     /**
      *
      * @param {string} title
-     * @return self
      */
     setTitle(title) {
         this.title = title;
-        return this;
     }
 
     /**
      *
      * @param {string} author
-     * @return self
      */
     setAuthor(author) {
         this.author = author;
@@ -74,7 +71,6 @@ class Book{
     /**
      *
      * @param {Publisher} publisher
-     * @return self
      */
     setPublisher(publisher) {
         this.publisher = publisher;
@@ -83,11 +79,9 @@ class Book{
     /**
      *
      * @param {number} price
-     * @return self
      */
     setPrice(price) {
         this.price = price;
-        return this;
     }
 
     /**
