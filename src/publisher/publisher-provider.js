@@ -1,6 +1,6 @@
 const Publisher = require('./publisher');
 
-class PublisherFactory {
+class PublisherProvide {
 
     /**
      *
@@ -16,4 +16,4 @@ class PublisherFactory {
     }
 }
 
-module.exports = PublisherFactory;
+module.exports = PublisherProvide;
