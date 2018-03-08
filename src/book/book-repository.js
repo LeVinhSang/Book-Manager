@@ -34,7 +34,7 @@ class BookRepository{
         return this.connection('books').update({
             title: book.getTitle(),
             author: book.getAuthor(),
-            publisher_id: book.getPublisher().getId(),
+            publisher_id: book.getPublisher().getId() ? book.getPublisher().getId() : null,
             price: book.getPrice()
         }).where({
             id: book.getId()
