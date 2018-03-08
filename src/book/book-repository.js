@@ -1,4 +1,4 @@
-const Book = require('./book');
+const Book       = require('./book');
 const Connection = require('../../database/knexConnection');
 
 class BookRepository{

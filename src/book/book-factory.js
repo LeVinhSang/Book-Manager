@@ -9,12 +9,17 @@ let publisherFactory    = new PublisherFactory();
 
 class BookFactory{
 
-
+    /**
+     *
+     * @param bookRaw
+     * @return {Book}
+     */
     makeFromRequest(bookRaw) {
         let book = new Book(bookRaw.title, bookRaw.author);
         book.setPrice(bookRaw.price);
         return book;
     }
+
     /**
      *
      * @param {Object} bookRaw
@@ -27,7 +32,12 @@ class BookFactory{
         return book;
     }
 
-    make(bookRaw) {
+    /**
+     *
+     * @param bookRaw
+     * @return {PromiseLike | Promise}
+     */
+    makeBook(bookRaw) {
         let book = this.makeFromRequest(bookRaw);
         return publisherProvider.provide(bookRaw.publisher_id)
             .then( publisher => {

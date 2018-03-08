@@ -1,2 +1,2 @@
-exports.bookRequest = require('./book-request');
+exports.bookRequest     = require('./book-request');
 exports.searchCondition = require('./search-condition');

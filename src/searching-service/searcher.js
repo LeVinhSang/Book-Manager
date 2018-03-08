@@ -1,4 +1,4 @@
-const Connection = require('../../database/knexConnection');
+const Connection  = require('../../database/knexConnection');
 const BookFactory = require('../book/book-factory');
 
 class Searcher {
@@ -27,6 +27,7 @@ class Searcher {
             .leftJoin('publishers', function () {
                 this.on('publisher_id', '=', 'publishers.id')
             });
+
         condition.describe(sqlQuery);
         return sqlQuery.then(results => results.map(element => factory.makeFromDB(element)));
     }

@@ -1,6 +1,7 @@
 const Publisher = require('./publisher');
 
 class PublisherFactory {
+
     /**
      *
      * @param publisherRaw
@@ -11,6 +12,7 @@ class PublisherFactory {
         publisher.setId(publisherRaw.id);
         publisher.setAddress(publisherRaw.address);
         publisher.setPhone(publisherRaw.phone);
+
         return publisher;
     }
 }

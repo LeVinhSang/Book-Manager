@@ -3,9 +3,10 @@ const router            = express.Router();
 const BookController    = require('../http/controller/book-controller');
 const check             = require('../http/middleware/index');
 
-let bookController = new BookController();
+let bookController      = new BookController();
 
-/* GET home page. */
+
+
 router.get('/', function(req, res) {
     res.render('index', { title: 'Express' });
 });
