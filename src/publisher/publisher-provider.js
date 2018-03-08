@@ -19,6 +19,7 @@ class PublisherProvide {
             .from('publishers')
             .where({id : id})
             .then(results => {
+
                 if(results.length === 0) {
                     return new Publisher("");
                 }
