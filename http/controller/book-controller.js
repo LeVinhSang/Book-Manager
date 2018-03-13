@@ -30,10 +30,25 @@ class BookController {
         });
     }
 
-
     search(request, response, next) {
         request.app.get('books.searcher').search(request.condition)
             .then((results) => response.send(results.map(result => result.toJson())))
+            .catch(next)
+    }
+
+    searchViews(request, response, next) {
+        request.app.get('books.searcher').search(request.condition)
+            .then( books => response.render('books.njk',{books:books}))
+            .catch(next)
+    }
+
+    detail(request, response, next) {
+        request.app.get('books.searcher').search(request.condition)
+            .then( books => {
+                if(!books.length) {
+                    return response.status(404).send("Not Found!");
+                }
+                response.render('detail.njk',{book:books[0]})})
             .catch(next)
     }
 }

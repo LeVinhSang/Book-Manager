@@ -16,6 +16,7 @@ class BookFactory{
      */
     makeFromRequest(bookRaw) {
         let book = new Book(bookRaw.title, bookRaw.author);
+        book.setId(bookRaw.id);
         book.setPrice(bookRaw.price);
         return book;
     }

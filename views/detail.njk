@@ -1,0 +1,30 @@
+<html lang="en">
+    <head>
+        <title>Book-Manager</title>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <header>
+            <h2>Book-Manager</h2>
+        </header>
+        <nav>
+            <a href="/">Home</a> |
+            <a href="/books">Books</a> |
+            <a href="#">Publishers</a>
+        </nav>
+
+        <section>
+            <small>
+                <h2>{{book.getTitle()}}</h2>
+            </small>
+            <small>
+                {{book.getAuthor()}}
+            </small> |
+            <small>
+                {{book.getPublisher().getName()}}
+            </small>
+        </section>
+    </body>
+
+</html>

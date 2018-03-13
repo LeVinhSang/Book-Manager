@@ -1,0 +1,29 @@
+<html lang="en">
+    <head>
+        <title>Book-Manager</title>
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+        <header>
+            <h2>Book-Manager</h2>
+        </header>
+
+        <nav>
+            <a href="/">Home</a> |
+            <a href="/books">Books</a> |
+            <a href="#">Publishers</a>
+        </nav>
+
+        <section>
+            {% for book in books %}
+            <ul>
+                <li>
+                    <a href="/book/{{book.getId()}}">{{book.getTitle()}}</a>
+                </li>
+            </ul>
+            {% endfor %}
+        </section>
+    </body>
+
+</html>
