@@ -1,14 +1,10 @@
 class BookController {
 
-    constructor() {
-
-    }
-
     createBook(request, response, next) {
         // console.log(request.book);
         let repo = request.app.get('books.repo');
         repo.add(request.book).then( () => {
-            response.status(201).send({message: "Success!"});
+            response.redirect('/books');
         }).catch( (err) => {
             next(err);
         });
@@ -32,23 +28,19 @@ class BookController {
 
     search(request, response, next) {
         request.app.get('books.searcher').search(request.condition)
-            .then((results) => response.send(results.map(result => result.toJson())))
+            .then( books => response.render('books.njk',{books:books}))
             .catch(next)
     }
 
-    searchViews(request, response, next) {
-        request.app.get('books.searcher').search(request.condition)
-            .then( books => response.render('books.njk',{books:books}))
+    renderAddBook(request, response, next) {
+        request.app.get('publishers.search').provideAll()
+            .then( publishers => response.render('create.njk',{publishers:publishers}))
             .catch(next)
     }
 
     detail(request, response, next) {
         request.app.get('books.searcher').search(request.condition)
-            .then( books => {
-                if(!books.length) {
-                    return response.status(404).send("Not Found!");
-                }
-                response.render('detail.njk',{book:books[0]})})
+            .then( books => response.render('detail.njk',{book:books[0]}))
             .catch(next)
     }
 }

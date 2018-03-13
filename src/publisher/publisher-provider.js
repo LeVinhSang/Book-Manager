@@ -27,6 +27,16 @@ class PublisherProvide {
             });
     }
 
+    provideAll() {
+        return this.connection.select().from('publishers')
+            .then( publisherRowsData => {
+                let publishers;
+
+                publishers = publisherRowsData.map( publisherRowData => publisherFactory.makeFromDB(publisherRowData));
+                return publishers;
+            });
+    }
+
 }
 
 module.exports = PublisherProvide;

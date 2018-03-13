@@ -10,11 +10,28 @@
         </header>
 
         <nav>
-            <a href="/">Home</a> |
-            <a href="/books">Books</a> |
-            <a href="#">Publishers</a>
-        </nav>
+            <form>
+                <a href="/">Home</a> |
+                <a href="/books">Books</a> |
+                <a href="#">Publishers</a>
+            </form>
 
+            <form method="get" action="/search-basic">
+                <input name="keyword" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
+
+            <form method="get" action="/search-advance">
+                <input name="title" placeholder="Title">
+                <input name="author" placeholder="Author">
+                <input name="publisher" placeholder="Publisher">
+                <button type="submit">Search</button>
+            </form>
+
+            <form>
+                <a href="/create">Create Book</a>
+            </form>
+        </nav>
         <section>
             {% for book in books %}
             <ul>

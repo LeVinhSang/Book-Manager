@@ -1,20 +1,14 @@
 const express           = require('express');
 const router            = express.Router();
-const BookController    = require('../http/controller/book-controller');
+const BookController    = require('../http/controller/api/book-controller');
 const check             = require('../http/middleware/index');
 
 let bookController      = new BookController();
 
 
-router.get('/', (req, res) => {
-    res.render('home.njk', { title: 'Express' });
-});
+router.get('/books', check.searchCondition, bookController.search);
 
-
-
-router.get('/books', check.searchCondition, bookController.searchViews);
-
-router.get('/book/:id', check.searchCondition, bookController.detail);
+router.get('/book/:id', check.searchCondition, bookController.search);
 
 router.post('/book', check.bookRequest, bookController.createBook);
 
