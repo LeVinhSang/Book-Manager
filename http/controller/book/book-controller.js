@@ -22,7 +22,7 @@ class BookController {
     editBook(request, response) {
         let repo = request.app.get('books.repo');
         repo.edit(request.book).then(function () {
-            response.json({message:'Success'});
+            response.redirect('/books');
         });
     }
 
@@ -38,16 +38,14 @@ class BookController {
             .catch(next)
     }
 
-    renderEditBook(request, response, next) {
-        request.app.get('books.searcher').search(request.condition)
-            .then( books => {
-                request.book = books[0];
-                return request.app.get('publishers.search').provideAll()
-            }).then ( publishers => {
-            response.render('edit.njk', {publishers:publishers, book: request.book})
-        }).catch(next)
+    //using promise all in mozilla.org
+    renderEditBook (req, res, next) {
+        let booksPromise      = req.app.get('books.searcher').search(req.condition);
+        let publishersPromise = req.app.get('publishers.search').provideAll();
+        Promise.all([booksPromise, publishersPromise])
+            .then( values => res.render('edit.njk', {book: values[0][0], publishers: values[1]}))
+            .catch(next)
     }
-
 
     detail(request, response, next) {
         request.app.get('books.searcher').search(request.condition)

@@ -11,23 +11,13 @@ class BookFactory{
 
     /**
      *
-     * @param bookRaw
-     * @return {Book}
-     */
-    makeFromRequest(bookRaw) {
-        let book = new Book(bookRaw.title, bookRaw.author);
-        book.setId(bookRaw.id);
-        book.setPrice(bookRaw.price);
-        return book;
-    }
-
-    /**
-     *
      * @param {Object} bookRaw
      * @return {Book}
      */
     makeFromDB(bookRaw) {
-        let book = this.makeFromRequest(bookRaw);
+        let book = new Book(bookRaw.title, bookRaw.author);
+        book.setId(bookRaw.id);
+        book.setPrice(bookRaw.price);
         let publisher = publisherFactory.makeFromDB(bookRaw);
         book.setPublisher(publisher);
         return book;
@@ -39,7 +29,8 @@ class BookFactory{
      * @return {PromiseLike | Promise}
      */
     makeBook(bookRaw) {
-        let book = this.makeFromRequest(bookRaw);
+        let book = new Book(bookRaw.title, bookRaw.author);
+        book.setPrice(bookRaw.price);
         return publisherProvider.provide(bookRaw.publisher_id)
             .then( publisher => {
                 book.setPublisher(publisher);
