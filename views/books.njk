@@ -36,7 +36,8 @@
             {% for book in books %}
             <ul>
                 <li>
-                    <a href="/book/{{book.getId()}}">{{book.getTitle()}}</a>
+                    <a href="/book/{{book.getId()}}">{{book.getTitle()}}</a> -|-
+                    <a href="/edit/{{book.getId()}}">Edit</a>
                 </li>
             </ul>
             {% endfor %}

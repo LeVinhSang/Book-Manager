@@ -1,7 +1,7 @@
 const express           = require('express');
 const router            = express.Router();
-const BookController    = require('../http/controller/api/book-controller');
-const check             = require('../http/middleware/index');
+const BookController    = require('../../http/controller/api/book-controller');
+const check             = require('../../http/middleware/index');
 
 let bookController      = new BookController();
 

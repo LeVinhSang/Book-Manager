@@ -38,6 +38,17 @@ class BookController {
             .catch(next)
     }
 
+    renderEditBook(request, response, next) {
+        request.app.get('books.searcher').search(request.condition)
+            .then( books => {
+                request.book = books[0];
+                return request.app.get('publishers.search').provideAll()
+            }).then ( publishers => {
+            response.render('edit.njk', {publishers:publishers, book: request.book})
+        }).catch(next)
+    }
+
+
     detail(request, response, next) {
         request.app.get('books.searcher').search(request.condition)
             .then( books => response.render('detail.njk',{book:books[0]}))

@@ -21,4 +21,7 @@ function makeCondition(request) {
     else if (request.path.toString().startsWith('/book/')) {
         return new IdSearchCondition(request.params.id);
     }
+    else if (request.path.toString().startsWith('/edit/')) {
+        return new IdSearchCondition(request.params.id);
+    }
 }
