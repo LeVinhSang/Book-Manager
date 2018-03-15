@@ -12,8 +12,7 @@
         <nav>
             <form>
                 <a href="/">Home</a> |
-                <a href="/books">Books</a> |
-                <a href="#">Publishers</a>
+                <a href="/books">Books</a>
             </form>
 
             <form method="get" action="/search-basic">
@@ -36,9 +35,14 @@
             {% for book in books %}
             <ul>
                 <li>
-                    <a href="/book/{{book.getId()}}">{{book.getTitle()}}</a> -|-
-                    <a href="/edit/{{book.getId()}}" style="font-size: larger">Edit</a> -|-
-                    <a href="/delete/{{book.getId()}}" style="font-size: larger">Delete</a>
+                    <form>
+                        <a href="/book/{{book.getId()}}">{{book.getTitle()}}</a> ||
+                        <a href="/edit/{{book.getId()}}">Edit</a>
+                    </form>
+
+                    <form method="post" action="/delete/{{book.getId()}}">
+                        <button type="submit">Delete</button>
+                    </form>
                 </li>
             </ul>
             {% endfor %}

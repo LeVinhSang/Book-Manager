@@ -2,7 +2,8 @@ const BookFactory = require('../../src/book/book-factory');
 
 let bookFactory   = new BookFactory();
 
-module.exports = function (req, res, next) {
+let bookRequest = (req, res, next) => {
+
     bookFactory.makeBook(req.body)
         .then( (book) => {
             book.setId(req.params.id);
@@ -10,3 +11,5 @@ module.exports = function (req, res, next) {
             next();
         });
 };
+
+module.exports = bookRequest;

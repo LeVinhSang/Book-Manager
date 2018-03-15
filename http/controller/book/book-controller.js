@@ -13,7 +13,7 @@ class BookController {
     removeBook(request, response, next) {
         let repo = request.app.get('books.repo');
         repo.remove(request.params.id).then( () => {
-            response.json({message:'Success'});
+            response.redirect('/books');
         }).catch( (err) => {
             next(err);
         });
@@ -39,6 +39,7 @@ class BookController {
     }
 
     //using promise all in mozilla.org
+
     renderEditBook (req, res, next) {
         let booksPromise      = req.app.get('books.searcher').search(req.condition);
         let publishersPromise = req.app.get('publishers.search').provideAll();

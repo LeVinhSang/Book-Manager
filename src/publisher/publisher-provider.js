@@ -32,14 +32,7 @@ class PublisherProvide {
             .then( publisherRowsData => {
                 let publishers;
 
-                publishers = publisherRowsData.map( publisherRaw => {
-                    let publisher = new Publisher(publisherRaw.name);
-                    publisher.setId(publisherRaw.id);
-                    publisher.setAddress(publisherRaw.address);
-                    publisher.setPhone(publisherRaw.phone);
-
-                    return publisher;
-                });
+                publishers = publisherRowsData.map( publisherRaw => publisherFactory.makeFromDB(publisherRaw));
                 return publishers;
             });
     }

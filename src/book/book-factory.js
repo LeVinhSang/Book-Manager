@@ -1,7 +1,7 @@
 const Book              = require('./book');
 const PublisherProvider = require('../publisher/publisher-provider');
 const knexConnection    = require('../../database/knexConnection');
-const PublisherFactory  = require('../publisher/publisher-factory');
+const PublisherFactory = require('../publisher/publisher-factory');
 
 
 let publisherProvider   = new PublisherProvider(knexConnection);
@@ -19,6 +19,7 @@ class BookFactory{
         book.setId(bookRaw.id);
         book.setPrice(bookRaw.price);
         let publisher = publisherFactory.makeFromDB(bookRaw);
+        publisher.setId(bookRaw.publisher_id);
         book.setPublisher(publisher);
         return book;
     }
