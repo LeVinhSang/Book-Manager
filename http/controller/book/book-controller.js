@@ -1,40 +1,39 @@
 class BookController {
 
-    createBook(request, response, next) {
-        // console.log(request.book);
-        let repo = request.app.get('books.repo');
-        repo.add(request.book).then( () => {
-            response.redirect('/books');
+    createBook(req, res, next) {
+        let repo = req.app.get('books.repo');
+        repo.add(req.book).then( () => {
+            res.redirect('/books');
         }).catch( (err) => {
             next(err);
         });
     }
 
-    removeBook(request, response, next) {
-        let repo = request.app.get('books.repo');
-        repo.remove(request.params.id).then( () => {
-            response.redirect('/books');
+    removeBook(req, res, next) {
+        let repo = req.app.get('books.repo');
+        repo.remove(req.params.id).then( () => {
+            res.redirect('/books');
         }).catch( (err) => {
             next(err);
         });
     }
 
-    editBook(request, response) {
-        let repo = request.app.get('books.repo');
-        repo.edit(request.book).then(function () {
-            response.redirect('/books');
+    editBook(req, res) {
+        let repo = req.app.get('books.repo');
+        repo.edit(req.book).then(function () {
+            res.redirect('/books');
         });
     }
 
-    search(request, response, next) {
-        request.app.get('books.searcher').search(request.condition)
-            .then( books => response.render('books.njk',{books:books}))
+    search(req, res, next) {
+        req.app.get('books.searcher').search(req.condition)
+            .then( books => res.render('books.njk',{books:books}))
             .catch(next)
     }
 
-    renderAddBook(request, response, next) {
-        request.app.get('publishers.search').provideAll()
-            .then( publishers => response.render('create.njk',{publishers:publishers}))
+    renderAddBook(req, res, next) {
+        req.app.get('publishers.search').provideAll()
+            .then( publishers => res.render('create.njk',{publishers:publishers}))
             .catch(next)
     }
 
@@ -48,9 +47,9 @@ class BookController {
             .catch(next)
     }
 
-    detail(request, response, next) {
-        request.app.get('books.searcher').search(request.condition)
-            .then( books => response.render('detail.njk',{book:books[0]}))
+    detail(req, res, next) {
+        req.app.get('books.searcher').search(req.condition)
+            .then( books => res.render('detail.njk',{book:books[0]}))
             .catch(next)
     }
 }
