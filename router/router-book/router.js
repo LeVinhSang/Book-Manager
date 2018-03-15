@@ -5,9 +5,9 @@ const UndeletedSearchCondition = require('../../src/searching-service/undeleted-
 const IdSearchCondition        = require('../../src/searching-service/id-search-condition');
 const KeywordSearchCondition   = require('../../src/searching-service/keyword-search-condition');
 const AdvanceSearchCondition   = require('../../src/searching-service/advance-search-condition');
-const bookRequest              = require('../../http/middleware/book-request');
-const checkLength              = require('../../http/middleware/check-length');
-const checkNull                = require('../../http/middleware/check-null');
+const bookRequest              = require('../../http/middleware/api/book-request');
+const checkLength              = require('../../http/middleware/api/check-length');
+const checkNull                = require('../../http/middleware/api/check-null');
 
 let bookController             = new BookController();
 
@@ -43,7 +43,7 @@ router.post('/book', checkNull, checkLength, bookRequest, bookController.createB
 
 router.post('/edit/:id', checkNull, checkLength, bookRequest, bookController.editBook);
 
-router.post('/delete/:id', checkNull, checkLength, bookController.removeBook);
+router.post('/delete/:id', bookController.removeBook);
 
 router.put('/book/:id', checkNull, checkLength, bookRequest, bookController.editBook);
 

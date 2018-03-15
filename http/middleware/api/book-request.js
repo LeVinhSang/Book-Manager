@@ -1,8 +1,8 @@
-const BookFactory = require('../../src/book/book-factory');
+const BookFactory = require('../../../src/book/book-factory');
 
 let bookFactory   = new BookFactory();
 
-let bookRequest = (req, res, next) => {
+module.exports = (req, res, next) => {
 
     bookFactory.makeBook(req.body)
         .then( (book) => {
@@ -11,5 +11,3 @@ let bookRequest = (req, res, next) => {
             next();
         });
 };
-
-module.exports = bookRequest;
