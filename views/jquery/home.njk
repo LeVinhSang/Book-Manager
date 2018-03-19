@@ -1,0 +1,163 @@
+<html lang="en">
+    <head>
+        <title>Book-Manager</title>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+
+            /*$("document").ready( () => {
+                $("#title").keyup( () => {
+                    $.get('/search-title', {
+                        title: $("#title").val()
+                    }, (data) => {
+                       /!* let dataJson = JSON.parse(data);*!/
+                        console.log(data[0].title);
+                        /!*if(!data.length) {
+                            $('p').hide();
+                        } else {
+                            $('p').innerHTML = dataJson[0].title;
+                        }*!/
+                    });
+                });
+
+                $("#get").click( () => {
+                    $.get('/search-advance', {
+                        title: $('#title').val(),
+                        author: $('#author').val(),
+                        publisher: $('#publisher_id').val(),
+                    }, (data) => {
+                        console.log(data);
+                    });
+                });
+
+                $("#get").click( () => {
+                    $.ajax({
+                        method: 'get',
+                        url: '/books',
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    })
+                });
+
+                $("#post").click( () => {
+                    $.post('/book', {
+                        title: $('#title').val(),
+                        author: $('#author').val(),
+                        publisher_id: $('#publisher_id').val(),
+                        price: $('#price').val()
+                    }, (status) => {
+                        alert("\nStatus: " + status);
+                    });
+                });
+            })*/
+            $(document).ready( () => {
+                function AJAXPromise (url, method, data) {
+                    return $.ajax({
+                        url: url,
+                        type: method,
+                        data: data,
+                        dataType:"json",
+                        content: "Application/json"
+                    });
+                }
+
+                $('#get').click( () => {
+                    AJAXPromise('/books', 'get').then( (data) => {
+                        console.log(data);
+                    });
+                });
+
+                $('#post').click( () => {
+                    AJAXPromise('/book', 'post', {
+                        title: $('#title').val(),
+                        author: $('#author').val(),
+                        publisher_id: $('#publisher_id').val(),
+                        price: $('#price').val()
+                    }).then( (data) => {
+                        console.log(data);
+                    });
+                });
+
+                $('#title').keyup( () => {
+                    AJAXPromise('/search-title', 'get', {
+                        title: $('#title').val()
+                    }).then( value => {
+                        if(!value.length) {
+                            $('#check').text("");
+                            $("#post").show()
+                        }
+                        else {
+                            $('#check').text('error');
+                            $("#post").hide()
+                        }
+                    })
+                });
+
+                $("#put").click( () => {
+                    AJAXPromise('/book', 'put', {
+                        id: $("#id").val(),
+                        title: $('#title').val(),
+                        author: $('#author').val(),
+                        publisher_id: $('#publisher_id').val(),
+                        price: $('#price').val()
+                    }).then(value => console.log(value));
+                });
+
+                $('#delete').click( () => {
+                    AJAXPromise('/book', 'delete', {
+                        id: $('#id').val()
+                    }).then(value => console.log(value));
+                });
+
+                $('#search-basic').click( () => {
+                    AJAXPromise('/search-basic', 'get', {
+                        keyword: $('#keyword').val()
+                    }).then(value => console.log(value));
+                });
+
+                $('#search-advance').click( () => {
+                    AJAXPromise('/search-advance', 'get', {
+                        title: $('#title').val(),
+                        author: $('#author').val(),
+                        publisher: $('#publisher_id').val()
+                    }).then(value => console.log(value));
+                });
+            });
+
+        </script>
+    </head>
+
+    <body>
+        <label>ID: </label>
+        <input id="id" placeholder="id"/>
+
+        <label>Title: </label>
+        <input id="title" placeholder="title"/>
+        <p style="color: red" id="check"></p>
+
+        <label>Author: </label>
+        <input id="author" placeholder="author"/>
+
+        <label>publisher_id: </label>
+        <input id="publisher_id" placeholder="publisher_id"/>
+
+        <label>price: </label>
+        <input id="price" placeholder="price"/>
+
+
+        <button id="post" type="submit">Create</button>
+
+        <button id="get" type="submit">Search</button>
+
+        <button id="put" type="submit">put</button>
+
+        <button id="delete" type="submit">delete</button>
+
+        <button id="search-advance" type="submit">Search-Advance</button>
+
+
+        <input id="keyword" placeholder="keyword"/>
+        <button id="search-basic" type="submit">Search-Basic</button>
+    </body>
+</html>

@@ -1,0 +1,95 @@
+<html lang="en">
+    <head>
+        <title>Book-Manager</title>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $(document).ready( () => {
+                function Feature(url, method, data) {
+                    return $.ajax({
+                        url : url,
+                        type: method,
+                        data: data,
+                        dataType: 'json',
+                        content: 'Application/json'
+                    })
+                }
+
+                Feature('/books', 'get').then(value => renderHTML(value));
+
+                $('#search-basic').click( () => {
+                    Feature('/search-basic', 'get', {
+                        keyword: $('#keyword').val()
+                    }).then(value => renderHTML(value));
+                });
+
+                $('#search-advance').click( () => {
+                    Feature('/search-advance', 'get', {
+                        title: $('#input-title-search').val(),
+                        author: $('#input-author-search').val(),
+                        publisher: $('#input-publisher-search').val()
+                    }).then(value => renderHTML(value));
+                });
+
+                function renderHTML(books) {
+                    let html ='';
+                    books.forEach( (element) => {
+                        html += "<ul><li><a href='/book/"+element.id+"'>"+element.title+"</a></li></ul>";
+                    });
+                    $('#title').html(html);
+                }
+
+                $('#create').click( () => {
+                    $('#add-book').toggle();
+                });
+
+                $('#create-book').click( () => {
+                    Feature('/book', 'post', {
+                        title: $('#input-title-create').val(),
+                        author: $('#input-author-create').val(),
+                        publisher_id: $('#input-publisher-create').val(),
+                        price: $('#input-price-create').val()
+                    }).then( value => {
+                        alert(value);
+                        $('#add-book').hide();
+                    });
+                })
+            });
+        </script>
+
+    </head>
+
+    <body>
+        <header>
+            <h2>Book-Manager</h2>
+        </header>
+        <nav>
+            <form>
+                <a href="/">Home</a>|
+                <a href="#" id="create">Create Book</a>
+            </form>
+            <form>
+                <input id="keyword" placeholder="search"/>
+                <button id="search-basic">Search</button>
+            </form>
+            <form>
+                <input id="input-title-search" placeholder="title"/>
+                <input id="input-author-search" placeholder="author"/>
+                <input id="input-publisher-search" placeholder="publisher_name">
+                <button type="submit" id="search-advance">Search</button>
+            </form>
+            <form hidden id="add-book">
+                <input id="input-title-create" placeholder="title"/>
+                <input id="input-author-create" placeholder="author"/>
+                <input id="input-publisher-create" placeholder="publisher">
+                <input id="input-price-create" placeholder="price">
+                <button id="create-book">Create</button>
+            </form>
+        </nav>
+
+        <section>
+            <form id="title">
+            </form>
+        </section>
+    </body>
+</html>

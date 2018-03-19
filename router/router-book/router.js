@@ -8,12 +8,15 @@ const AdvanceSearchCondition   = require('../../src/searching-service/advance-se
 const bookRequest              = require('../../http/middleware/api/book-request');
 const checkLength              = require('../../http/middleware/api/check-length');
 const checkNull                = require('../../http/middleware/api/check-null');
+const TitleSearchCondition     = require('../../src/searching-service/title-search-condition');
+
+
 
 let bookController             = new BookController();
 
 
 router.get('/', (req, res) => {
-    res.render('home.njk', { title: 'Express' });
+    res.render('index.njk', { title: 'Express' });
 });
 
 
@@ -43,11 +46,17 @@ router.post('/book', checkNull, checkLength, bookRequest, bookController.createB
 
 router.post('/edit/:id', checkNull, checkLength, bookRequest, bookController.editBook);
 
-router.post('/delete/:id', bookController.removeBook);
+router.delete('/delete', bookController.removeBook);
 
-router.put('/book/:id', checkNull, checkLength, bookRequest, bookController.editBook);
+router.put('/book', checkNull, checkLength, bookRequest, bookController.editBook);
 
-router.delete('/book/:id', bookController.removeBook);
+router.delete('/book', bookController.removeBook);
+
+
+router.get('/search-title', (req, res, next) => {
+    req.condition = new TitleSearchCondition(req.query.title);
+    next();
+}, bookController.search);
 
 router.get('/search-advance', (req, res, next) => {
     req.condition = new AdvanceSearchCondition(req.query.title, req.query.author, req.query.publisher);

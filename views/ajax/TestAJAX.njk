@@ -1,0 +1,23 @@
+<html lang="en">
+    <head>
+        <title>Book-Manager</title>
+        <meta charset="UTF-8">
+        <script>
+            function reqListener () {
+                let req = new XMLHttpRequest();
+                req.onreadystatechange = function () {
+                    if(this.status === 200) {
+                        document.getElementById('test').innerHTML = req.responseText;
+                    }
+                };
+                req.open('post', '/book', true);
+                req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                req.send("title=dragon&author=akira&publisher_id=1&price=3");
+            }
+        </script>
+    </head>
+    <body>
+    <div id="test"></div>
+        <button onclick="reqListener()">Click</button>
+    </body>
+</html>

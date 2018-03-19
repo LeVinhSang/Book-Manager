@@ -3,7 +3,7 @@ class BookController {
     createBook(req, res, next) {
         let repo = req.app.get('books.repo');
         repo.add(req.book).then( () => {
-            res.redirect('/books');
+            res.send({message: 'success'});
         }).catch( (err) => {
             next(err);
         });
@@ -11,8 +11,8 @@ class BookController {
 
     removeBook(req, res, next) {
         let repo = req.app.get('books.repo');
-        repo.remove(req.params.id).then( () => {
-            res.redirect('/books');
+        repo.remove(req.body.id).then( () => {
+            res.send({message: 'success'});
         }).catch( (err) => {
             next(err);
         });
@@ -21,13 +21,13 @@ class BookController {
     editBook(req, res) {
         let repo = req.app.get('books.repo');
         repo.edit(req.book).then(function () {
-            res.redirect('/books');
+            res.json({message: 'success'});
         });
     }
 
     search(req, res, next) {
         req.app.get('books.searcher').search(req.condition)
-            .then( books => res.render('books.njk',{books:books}))
+            .then( books => res.json(books))
             .catch(next)
     }
 
@@ -49,7 +49,7 @@ class BookController {
 
     detail(req, res, next) {
         req.app.get('books.searcher').search(req.condition)
-            .then( books => res.render('detail.njk',{book:books[0]}))
+            .then( books => res.render('detail.njk', {book:books[0]}))
             .catch(next)
     }
 }

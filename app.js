@@ -14,7 +14,7 @@ app.set('books.searcher', new Searcher(knex, new BookFactory()));
 app.set('publishers.search', new PublisherProvide(knex));
 
 
-nunjucks.configure('views', {
+nunjucks.configure('views/jquery', {
     autoescape: true,
     express: app
 });
