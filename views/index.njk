@@ -1,0 +1,67 @@
+<html lang="en">
+    <head>
+        <title>Book-Manager</title>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/javascript/list-books-script.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+                crossorigin="anonymous"></script>
+        <script src="semantic/dist/semantic.min.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <h2>Book-Manager</h2>
+        </header>
+        <nav>
+            <form>
+                <a href="/">Home</a> |
+                <a href="#" id="create">Create Book</a> |
+                <a href="#" id="search">Search Advance</a>
+            </form>
+
+            <div class="ui action input">
+                <input type="text" placeholder="Search..." id="keyword">
+                <button class="ui icon button" id="search-basic">
+                    <i class="search icon"></i>
+                </button>
+            </div>
+
+            <br>
+
+            <div hidden id="advance">
+                <input id="input-title-search" placeholder="title"/>
+                <input id="input-author-search" placeholder="author"/>
+                <input id="input-publisher-search" placeholder="publisher_name">
+                <button type="submit" id="search-advance">Search</button>
+            </div>
+
+            <form hidden id="add-book">
+                <input id="input-title-create" placeholder="title"/>
+                <input id="input-author-create" placeholder="author"/>
+                <select id="list-publisher">
+
+                </select>
+                <input id="input-price-create" placeholder="price">
+                <button id="create-book">Create</button>
+            </form>
+        </nav>
+
+        <section>
+            <form id="list-book"></form>
+        </section>
+    </body>
+
+    <script id="bookTemplate" type="text/html">
+        <ul>
+            <li><a href="/edit/:id:">:bookName:</a></li>
+        </ul>
+    </script>
+
+    <script id="publisherTemplate" type="text/html">
+        <option value=":publisher.id:">:publisher.name:</option>
+    </script>
+</html>

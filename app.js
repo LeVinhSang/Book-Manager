@@ -13,8 +13,9 @@ app.set('books.repo', new BookRepository(knex));
 app.set('books.searcher', new Searcher(knex, new BookFactory()));
 app.set('publishers.search', new PublisherProvide(knex));
 
+app.use(express.static('public'));
 
-nunjucks.configure('views/jquery', {
+nunjucks.configure('views', {
     autoescape: true,
     express: app
 });

@@ -1,0 +1,64 @@
+<html lang="en">
+    <head>
+        <title>Book-Manager</title>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/javascript/edit-book-script.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <h2>Book-Manager</h2>
+        </header>
+        <nav>
+            <form>
+                <a href="/">Home</a>
+            </form>
+        </nav>
+
+        <section>
+            <form>
+                <small>
+                    <h2>{{book.getTitle()}}</h2>
+                </small>
+
+                <small>
+                    {{book.getAuthor()}}
+                </small> |
+                <small>
+                    {{book.getPublisher().getName()}}
+                </small> |
+
+                <small>
+                    {{book.getPrice()}}
+                </small> |
+
+                <small>
+                    <a href="#" id="edit">Edit</a>
+                </small> |
+
+                <small>
+                    <a href="/delete/{{book.getId()}}" id="delete">Delete</a>
+                </small>
+            </form>
+
+            <form hidden id="edit-book" method="post" action="/book/{{book.getId()}}">
+                <input name="title" value="{{book.getTitle()}}" placeholder="Title">
+                <input name="author" value="{{book.getAuthor()}} " placeholder="Author">
+                <label for="publisher">Publisher</label>
+                <select name="publisher_id" id="publisher_id">
+                    <option value="">Null</option>
+                    {% for publisher in publishers %}
+                    {% if book.getPublisher().getId() == publisher.getId() %}
+                    <option value="{{book.getPublisher().getId()}}" selected>{{book.getPublisher().getName()}}</option>
+                    {% else %}
+                    <option value="{{publisher.getId()}}">{{publisher.getName()}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <input name="price" value="{{book.getPrice()}}" placeholder="price">
+                <button type="submit">Edit</button>
+            </form>
+        </section>
+    </body>
+</html>

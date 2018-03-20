@@ -11,8 +11,8 @@ class BookController {
 
     removeBook(req, res, next) {
         let repo = req.app.get('books.repo');
-        repo.remove(req.body.id).then( () => {
-            res.send({message: 'success'});
+        repo.remove(req.params.id).then( () => {
+            res.redirect('/');
         }).catch( (err) => {
             next(err);
         });
@@ -21,7 +21,7 @@ class BookController {
     editBook(req, res) {
         let repo = req.app.get('books.repo');
         repo.edit(req.book).then(function () {
-            res.json({message: 'success'});
+            res.render('index.njk');
         });
     }
 
@@ -33,7 +33,7 @@ class BookController {
 
     renderAddBook(req, res, next) {
         req.app.get('publishers.search').provideAll()
-            .then( publishers => res.render('create.njk',{publishers:publishers}))
+            .then( publishers => res.json(publishers))
             .catch(next)
     }
 
@@ -43,7 +43,7 @@ class BookController {
         let booksPromise      = req.app.get('books.searcher').search(req.condition);
         let publishersPromise = req.app.get('publishers.search').provideAll();
         Promise.all([booksPromise, publishersPromise])
-            .then( values => res.render('edit.njk', {book: values[0][0], publishers: values[1]}))
+            .then( values => res.render('detail.njk', {book:values[0][0], publishers:values[1]}))
             .catch(next)
     }
 
