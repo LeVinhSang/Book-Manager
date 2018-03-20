@@ -9,51 +9,65 @@
     </head>
 
     <body>
+        <div class="navbar navbar-light navbar-static-top" style="background-color: #e3f2fd;">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#" id="create">Create Book</a></li>
+                <li ><a href="#" id="search">Search Advance</a></li>
+            </ul>
+            <div class="navbar-form navbar-right">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" id="keyword" placeholder="Key Word">
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="container-fluid">
             <header>
                 <h2>Book-Manager</h2>
             </header>
             <nav>
-                <form>
-                    <a href="/">Home</a> |
-                    <a href="#" id="create">Create Book</a> |
-                    <a href="#" id="search">Search Advance</a>
-                </form>
+                <div hidden class="form-inline" id="advance">
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="input-title-search" placeholder="title">
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <input type="text" class="form-control" id="keyword" placeholder="Key Word">
-                        <button class="btn btn-success btn-block" id="search-basic">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" id="input-author-search" placeholder="author">
                     </div>
+
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" id="input-publisher-search" placeholder="publisher">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="search-advance">Search</button>
                 </div>
 
-                <br>
+    <!---------------------------------------------------------------------------------------------------------------->
 
-                <div hidden id="advance">
-                    <input id="input-title-search" placeholder="title"/>
-                    <input id="input-author-search" placeholder="author"/>
-                    <input id="input-publisher-search" placeholder="publisher_name">
-                    <button type="submit" id="search-advance">Search</button>
+                <div hidden class="form-inline" id="add-book">
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="input-title-create" placeholder="title">
+
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" id="input-author-create" placeholder="author">
+                    </div>
+
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <select class="form-control" id="list-publisher">
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="number" class="form-control" id="input-price-create" placeholder="price">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="create-book">Create</button>
                 </div>
-
-                <form hidden id="add-book">
-                    <input id="input-title-create" placeholder="title"/>
-                    <input id="input-author-create" placeholder="author"/>
-                    <select id="list-publisher">
-
-                    </select>
-                    <input id="input-price-create" placeholder="price">
-                    <button id="create-book">Create</button>
-                </form>
             </nav>
 
             <section>
                 <form id="list-book"></form>
             </section>
         </div>
-
     </body>
 
     <script id="bookTemplate" type="text/html">

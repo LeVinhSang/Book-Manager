@@ -3,7 +3,7 @@ class BookController {
     createBook(req, res, next) {
         let repo = req.app.get('books.repo');
         repo.add(req.book).then( () => {
-            res.send({message: 'success'});
+            res.redirect('/');
         }).catch( (err) => {
             next(err);
         });

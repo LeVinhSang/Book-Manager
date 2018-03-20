@@ -75,7 +75,7 @@ $(document).ready( () => {
         $('#list-book').html(resultsHTML);
     }
 
-    $('#search-basic').click( () => {
+    $('#keyword').change( () => {
         $.get('/search-basic', {
             keyword: $('#keyword').val()
         }).then(renderBook);
@@ -92,12 +92,23 @@ $(document).ready( () => {
 
     $('#search').click( () => {
         $('#advance').toggle();
+        $('#add-book').hide();
     });
 
     $('#create').click( () => {
         $('#add-book').toggle();
+        $('#advance').hide();
     });
 
+
+    $('#create-book').click( () => {
+        $.post('/book', {
+            title: $('#input-title-create').val(),
+            author: $('#input-author-create').val(),
+            publisher_id: $('#list-publisher').val(),
+            price: $('#input-price-create').val()
+        });
+    });
     /*--------------------------------------------------------------------------------------*/
 
     function renderPublishers(publishers) {

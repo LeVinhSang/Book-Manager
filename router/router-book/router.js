@@ -44,8 +44,6 @@ router.get('/edit/:id', (req, res, next) => {
 
 router.post('/book', checkNull, checkLength, bookRequest, bookController.createBook);
 
-router.post('/edit/:id', checkNull, checkLength, bookRequest, bookController.editBook);
-
 router.post('/book/:id', checkNull, checkLength, bookRequest, bookController.editBook);
 
 router.get('/delete/:id', bookController.removeBook);
