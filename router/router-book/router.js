@@ -46,14 +46,9 @@ router.post('/book', checkNull, checkLength, bookRequest, bookController.createB
 
 router.post('/edit/:id', checkNull, checkLength, bookRequest, bookController.editBook);
 
-router.delete('/delete', bookController.removeBook);
-
-
-router.get('/delete/:id', bookController.removeBook);
-
 router.post('/book/:id', checkNull, checkLength, bookRequest, bookController.editBook);
 
-router.delete('/book', bookController.removeBook);
+router.get('/delete/:id', bookController.removeBook);
 
 
 router.get('/search-title', (req, res, next) => {
