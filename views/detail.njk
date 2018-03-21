@@ -9,70 +9,68 @@
     </head>
 
     <body>
+        <div class="navbar navbar-light navbar-static-top" style="background-color: #e3f2fd;">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#" id="edit">Edit</a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/delete/{{book.getId()}}">Delete</a></li>
+            </ul>
+        </div>
         <div class="container-fluid">
-            <header>
-                <h2>Book-Manager</h2>
-            </header>
-            <nav>
-                <form>
-                    <a href="/">Home</a>
-                </form>
-            </nav>
+            <div class="col-md-10 col-md-offset-5">
+                <section>
+                    <form>
+                        <small>
+                            <h2>{{book.getTitle()}}</h2>
+                        </small>
 
-            <section>
-                <form>
-                    <small>
-                        <h2>{{book.getTitle()}}</h2>
-                    </small>
+                        <small>
+                            {{book.getAuthor()}}
+                        </small> |
+                        <small>
+                            {{book.getPublisher().getName()}}
+                        </small> |
 
-                    <small>
-                        {{book.getAuthor()}}
-                    </small> |
-                    <small>
-                        {{book.getPublisher().getName()}}
-                    </small> |
+                        <small>
+                            {{book.getPrice()}}
+                        </small>
+                    </form>
+                </section>
+            </div>
+            <div class="col-md-10 col-md-offset-2">
+                <section>
+                    <form hidden class="form-inline" id="edit-book" method="post" action="/book/{{book.getId()}}">
+                        <input value="{{book.getTitle()}}" class="form-control mb-2 mr-sm-2 mb-sm-0" name="title" placeholder="title">
 
-                    <small>
-                        {{book.getPrice()}}
-                    </small> |
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <input value="{{book.getAuthor()}}" class="form-control" name="author" placeholder="author">
+                        </div>
 
-                    <small>
-                        <a href="#" id="edit">Edit</a>
-                    </small> |
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <select class="form-control" id="list-publisher" name="publisher_id">
+                                <option value="">Null</option>
+                                {% for publisher in publishers %}
+                                {% if book.getPublisher().getId() == publisher.getId() %}
+                                <option value="{{book.getPublisher().getId()}}" selected>{{book.getPublisher().getName()}}</option>
+                                {% else %}
+                                <option value="{{publisher.getId()}}">{{publisher.getName()}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <small>
-                        <a href="/delete/{{book.getId()}}">Delete</a>
-                    </small>
-                </form>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <input type="number" value="{{book.getPrice()}}" class="form-control" name="price" placeholder="price">
+                        </div>
 
-                <form hidden class="form-inline" id="edit-book" method="post" action="/book/{{book.getId()}}">
-                    <input value="{{book.getTitle()}}" class="form-control mb-2 mr-sm-2 mb-sm-0" name="title" placeholder="title">
-
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <input value="{{book.getAuthor()}}" class="form-control" name="author" placeholder="author">
-                    </div>
-
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <select class="form-control" id="list-publisher" name="publisher_id">
-                            <option value="">Null</option>
-                            {% for publisher in publishers %}
-                            {% if book.getPublisher().getId() == publisher.getId() %}
-                            <option value="{{book.getPublisher().getId()}}" selected>{{book.getPublisher().getName()}}</option>
-                            {% else %}
-                            <option value="{{publisher.getId()}}">{{publisher.getName()}}</option>
-                            {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <input type="number" value="{{book.getPrice()}}" class="form-control" name="price" placeholder="price">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                </form>
-
-            </section>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                </section>
+            </div>
         </div>
     </body>
 </html>
