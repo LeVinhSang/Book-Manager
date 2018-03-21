@@ -45,23 +45,33 @@
                     </small>
                 </form>
 
-                <form hidden id="edit-book" method="post" action="/book/{{book.getId()}}">
-                    <input name="title" value="{{book.getTitle()}}" placeholder="Title">
-                    <input name="author" value="{{book.getAuthor()}} " placeholder="Author">
-                    <label for="publisher">Publisher</label>
-                    <select name="publisher_id" id="publisher_id">
-                        <option value="">Null</option>
-                        {% for publisher in publishers %}
-                        {% if book.getPublisher().getId() == publisher.getId() %}
-                        <option value="{{book.getPublisher().getId()}}" selected>{{book.getPublisher().getName()}}</option>
-                        {% else %}
-                        <option value="{{publisher.getId()}}">{{publisher.getName()}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                    <input name="price" value="{{book.getPrice()}}" placeholder="price">
-                    <button type="submit">Edit</button>
+                <form hidden class="form-inline" id="edit-book" method="post" action="/book/{{book.getId()}}">
+                    <input value="{{book.getTitle()}}" class="form-control mb-2 mr-sm-2 mb-sm-0" name="title" placeholder="title">
+
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input value="{{book.getAuthor()}}" class="form-control" name="author" placeholder="author">
+                    </div>
+
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <select class="form-control" id="list-publisher" name="publisher_id">
+                            <option value="">Null</option>
+                            {% for publisher in publishers %}
+                            {% if book.getPublisher().getId() == publisher.getId() %}
+                            <option value="{{book.getPublisher().getId()}}" selected>{{book.getPublisher().getName()}}</option>
+                            {% else %}
+                            <option value="{{publisher.getId()}}">{{publisher.getName()}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="number" value="{{book.getPrice()}}" class="form-control" name="price" placeholder="price">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Edit</button>
                 </form>
+
             </section>
         </div>
     </body>
