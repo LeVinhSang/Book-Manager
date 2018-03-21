@@ -24,23 +24,17 @@
             <div class="col-md-10 col-md-offset-5">
                 <section>
                     <form>
-                        <small>
-                            <h2>{{book.getTitle()}}</h2>
-                        </small>
+                        <small><h2>{{book.getTitle()}}</h2></small>
 
-                        <small>
-                            {{book.getAuthor()}}
-                        </small> |
-                        <small>
-                            {{book.getPublisher().getName()}}
-                        </small> |
+                        <small>{{book.getAuthor()}}</small> |
 
-                        <small>
-                            {{book.getPrice()}}
-                        </small>
+                        <small>{{book.getPublisher().getName()}}</small> |
+
+                        <small>{{book.getPrice()}}</small>
                     </form>
                 </section>
             </div>
+
             <div class="col-md-10 col-md-offset-2">
                 <section>
                     <form hidden class="form-inline" id="edit-book" method="post" action="/book/{{book.getId()}}">
