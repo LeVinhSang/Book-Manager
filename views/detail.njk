@@ -3,9 +3,10 @@
         <title>Book-Manager</title>
         <meta charset="UTF-8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="/javascript/edit-book-script.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     </head>
 
     <body>
@@ -14,7 +15,7 @@
                 <li class="active"><a href="/">Home</a></li>
             </ul>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#" id="edit">Edit</a></li>
+                <li class="active"><a href="#" id="edit" data-toggle="modal" data-target="#myModal">Edit</a></li>
             </ul>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/delete/{{book.getId()}}">Delete</a></li>
@@ -34,37 +35,52 @@
                     </form>
                 </section>
             </div>
-
-            <div class="col-md-10 col-md-offset-2">
-                <section>
-                    <form hidden class="form-inline" id="edit-book" method="post" action="/book/{{book.getId()}}">
-                        <input value="{{book.getTitle()}}" class="form-control mb-2 mr-sm-2 mb-sm-0" name="title" placeholder="title">
-
-                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input value="{{book.getAuthor()}}" class="form-control" name="author" placeholder="author">
-                        </div>
-
-                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <select class="form-control" id="list-publisher" name="publisher_id">
-                                <option value="">Null</option>
-                                {% for publisher in publishers %}
-                                {% if book.getPublisher().getId() == publisher.getId() %}
-                                <option value="{{book.getPublisher().getId()}}" selected>{{book.getPublisher().getName()}}</option>
-                                {% else %}
-                                <option value="{{publisher.getId()}}">{{publisher.getName()}}</option>
-                                {% endif %}
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="number" value="{{book.getPrice()}}" class="form-control" name="price" placeholder="price">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                    </form>
-                </section>
-            </div>
         </div>
+        <section>
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create Book</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-group" id="add-book" method="post" action="/book">
+                            <div class="form-group">
+                                <label>Title:</label>
+                                <input value="{{book.getTitle()}}" class="form-control" name="title" placeholder="title">
+                            </div>
+                            <div class="form-group">
+                                <label>Author:</label>
+                                <input value="{{book.getAuthor()}}" class="form-control" name="author" placeholder="author">
+                            </div>
+                            <div class="form-group">
+                                <label>Publisher:</label>
+                                <select class="form-control" id="list-publisher" name="publisher_id">
+                                    <option value="">Null</option>
+                                    {% for publisher in publishers %}
+                                    {% if book.getPublisher().getId() == publisher.getId() %}
+                                    <option value="{{book.getPublisher().getId()}}" selected>{{book.getPublisher().getName()}}</option>
+                                    {% else %}
+                                    <option value="{{publisher.getId()}}">{{publisher.getName()}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Price:</label>
+                                <input value="{{book.getPrice()}}" type="number" class="form-control" name="price" placeholder="price">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </section>
     </body>
 </html>

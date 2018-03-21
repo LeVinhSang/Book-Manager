@@ -37,7 +37,8 @@ class BookRepository{
             publisher_id: book.getPublisher().getId() ? book.getPublisher().getId() : null,
             price: book.getPrice()
         }).where({
-            id: book.getId()
+            id: book.getId(),
+            deleted_at: null
         });
     }
 
